@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "Installing go..."
+
+bins=(
+"go"
+"gofmt"
+)
+
+for bin in ${bins[@]}; do
+	if [ ! -e "$DOCKER_APP_BASE/bin/$bin" ]; then
+		ln -s "$DOCKER_APP_PATH/$bin" "$DOCKER_APP_BASE/bin/"
+	fi
+done
+

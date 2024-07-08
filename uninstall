@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Uninstalling go..."
+# nothing to do
