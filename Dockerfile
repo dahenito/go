@@ -34,6 +34,11 @@ RUN  [ -d /goroot/bin/${GOOS}_${GOARCH} ] \
 	&& cp -R /goroot/bin/${GOOS}_${GOARCH} /egress \
 	|| cp -R /goroot/bin /egress
 
+RUN \
+	cp -R /goroot/pkg /egress && \
+	cp -R /goroot/src /egress && \
+	cp /goroot//README.md /egress && \
+	cp /goroot//LICENSE /egress
 #
 COPY install uninstall /egress/
 
