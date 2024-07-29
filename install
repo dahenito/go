@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 echo "Installing go..."
 
 bins=(
@@ -7,9 +9,12 @@ bins=(
 "gofmt"
 )
 
-for bin in ${bins[@]}; do
-	if [ ! -e "$DOCKER_APP_BASE/bin/$bin" ]; then
-		ln -s "$DOCKER_APP_PATH/$bin" "$DOCKER_APP_BASE/bin/"
-	fi
-done
+prefix=$(dirname "$DOCKER_APP_PATH")/go
+resolved=$(readlink "$DOCKER_APP_BASE/bin/go")
 
+if [[ $resolved == $prefix* ]]; then
+	for bin in "${bins[@]}"; do
+		rm "$DOCKER_APP_BASE/bin/$bin"
+		ln -s "$DOCKER_APP_PATH/$bin" "$DOCKER_APP_BASE/bin/"
+	done
+fi
